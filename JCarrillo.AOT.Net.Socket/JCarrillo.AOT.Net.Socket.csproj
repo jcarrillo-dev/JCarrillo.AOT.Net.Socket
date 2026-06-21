@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+	<PackageId>JCarrillo.AOT.Net.Socket</PackageId>
+	<Authors>José Carrillo Serrano</Authors>
+	<Company>jcarrillo-dev</Company>
+	<Description>High-performance, zero-allocation low-level socket library optimized for Native AOT and Trimming in .NET.</Description>
+	<PackageProjectUrl>https://github.com/jcarrillo-dev/JCarrillo.AOT.Net.Socket</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/jcarrillo-dev/JCarrillo.AOT.Net.Socket</RepositoryUrl>
+	<PackageTags>aot;native-aot;zero-allocation;high-performance;pooling;socket;net;tcp;udp;network;net8;net9;net10</PackageTags>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+
+	<IsTrimmable>true</IsTrimmable>
+	<TrimMode>full</TrimMode>
+	<PublishAot>true</PublishAot>
+	<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+	<EnableAotAnalyzer>true</EnableAotAnalyzer>
+	<EnableSingleFileAnalyzer>true</EnableSingleFileAnalyzer>
+
+	<IllinkTreatWarningsAsErrors>true</IllinkTreatWarningsAsErrors>
+	<ZoneCheck>true</ZoneCheck>
+
+	<OptimizationPreference>Speed</OptimizationPreference>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<OverflowChecks>false</OverflowChecks>
+	<TieredCompilation>false</TieredCompilation>
+
+	<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+	<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  
+	<IncludeSymbols>true</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="JCarrillo.AOT.Core" Version="1.0.3" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
+	</ItemGroup>
+
+</Project>

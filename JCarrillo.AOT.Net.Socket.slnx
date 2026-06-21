@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="JCarrillo.AOT.Net.Socket/JCarrillo.AOT.Net.Socket.csproj" />
+  <Project Path="JCarrillo.AOT.Net.Socket.Benchmarks/JCarrillo.AOT.Net.Socket.Benchmarks.csproj" />
+  <Project Path="JCarrillo.AOT.Net.Socket.Tests/JCarrillo.AOT.Net.Socket.Tests.csproj" />
+</Solution>

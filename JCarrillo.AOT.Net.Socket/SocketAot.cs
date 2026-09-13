@@ -1,10 +1,7 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
 using JCarrillo.AOT.Core.Colecciones.Pooled;
 using JCarrillo.AOT.Core.Colecciones.Pooled.Ref;
 using JCarrillo.AOT.Net.Socket.Interfaces;
@@ -110,14 +107,14 @@ namespace JCarrillo.AOT.Net.Socket
 
         [DoesNotReturn]
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void LanzarExcepcionNull() 
+        private static void LanzarExcepcionNull()
             => throw new InvalidOperationException("El socket no está inicializado.");
 
         #region Operaciones de bajo nivel directas
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ValueTask<int> RecibirAsync(Memory<byte> buffer, CancellationToken cancellationToken = default) 
+        public ValueTask<int> RecibirAsync(Memory<byte> buffer, CancellationToken cancellationToken = default)
             => RecibirAsync(buffer, SocketFlags.None, cancellationToken);
 
         /// <summary>
@@ -128,12 +125,12 @@ namespace JCarrillo.AOT.Net.Socket
         /// <param name="cancellationToken">El token de cancelación.</param>
         /// <returns>Una tarea que representa la recepción asíncrona con el número de bytes recibidos.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ValueTask<int> RecibirAsync(Memory<byte> buffer, SocketFlags socketFlags, CancellationToken cancellationToken = default) 
+        public ValueTask<int> RecibirAsync(Memory<byte> buffer, SocketFlags socketFlags, CancellationToken cancellationToken = default)
             => SocketSeguro.ReceiveAsync(buffer, socketFlags, cancellationToken);
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Recibir(Span<byte> buffer) 
+        public int Recibir(Span<byte> buffer)
             => Recibir(buffer, SocketFlags.None);
 
         /// <summary>
@@ -143,12 +140,12 @@ namespace JCarrillo.AOT.Net.Socket
         /// <param name="socketFlags">Los flags de control del socket.</param>
         /// <returns>El número de bytes recibidos.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Recibir(Span<byte> buffer, SocketFlags socketFlags = SocketFlags.None) 
+        public int Recibir(Span<byte> buffer, SocketFlags socketFlags = SocketFlags.None)
             => SocketSeguro.Receive(buffer, socketFlags);
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ValueTask<int> RecibirAsync(ref PooledArray<byte> buffer, CancellationToken cancellationToken = default) 
+        public ValueTask<int> RecibirAsync(ref PooledArray<byte> buffer, CancellationToken cancellationToken = default)
             => RecibirAsync(ref buffer, SocketFlags.None, cancellationToken);
 
         /// <summary>
@@ -159,12 +156,12 @@ namespace JCarrillo.AOT.Net.Socket
         /// <param name="cancellationToken">El token de cancelación.</param>
         /// <returns>Una tarea que representa la recepción asíncrona con el número de bytes recibidos.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ValueTask<int> RecibirAsync(ref PooledArray<byte> buffer, SocketFlags socketFlags, CancellationToken cancellationToken = default) 
+        public ValueTask<int> RecibirAsync(ref PooledArray<byte> buffer, SocketFlags socketFlags, CancellationToken cancellationToken = default)
             => SocketSeguro.ReceiveAsync(buffer.Memory, socketFlags, cancellationToken);
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Recibir(ref PooledArray<byte> buffer) 
+        public int Recibir(ref PooledArray<byte> buffer)
             => Recibir(ref buffer, SocketFlags.None);
 
         /// <summary>
@@ -174,12 +171,12 @@ namespace JCarrillo.AOT.Net.Socket
         /// <param name="socketFlags">Los flags de control del socket.</param>
         /// <returns>El número de bytes recibidos.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Recibir(ref PooledArray<byte> buffer, SocketFlags socketFlags = SocketFlags.None) 
+        public int Recibir(ref PooledArray<byte> buffer, SocketFlags socketFlags = SocketFlags.None)
             => SocketSeguro.Receive(buffer.Span, socketFlags);
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Recibir(ref PooledArrayRef<byte> buffer) 
+        public int Recibir(ref PooledArrayRef<byte> buffer)
             => Recibir(ref buffer, SocketFlags.None);
 
         /// <summary>
@@ -189,12 +186,12 @@ namespace JCarrillo.AOT.Net.Socket
         /// <param name="socketFlags">Los flags de control del socket.</param>
         /// <returns>El número de bytes recibidos.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Recibir(ref PooledArrayRef<byte> buffer, SocketFlags socketFlags = SocketFlags.None) 
+        public int Recibir(ref PooledArrayRef<byte> buffer, SocketFlags socketFlags = SocketFlags.None)
             => SocketSeguro.Receive(buffer.Span, socketFlags);
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ValueTask<int> EnviarAsync(ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken = default) 
+        public ValueTask<int> EnviarAsync(ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken = default)
             => EnviarAsync(buffer, SocketFlags.None, cancellationToken);
 
         /// <summary>
@@ -205,12 +202,12 @@ namespace JCarrillo.AOT.Net.Socket
         /// <param name="cancellationToken">El token de cancelación.</param>
         /// <returns>Una tarea que representa el envío asíncrono con el número de bytes enviados.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ValueTask<int> EnviarAsync(ReadOnlyMemory<byte> buffer, SocketFlags socketFlags, CancellationToken cancellationToken = default) 
+        public ValueTask<int> EnviarAsync(ReadOnlyMemory<byte> buffer, SocketFlags socketFlags, CancellationToken cancellationToken = default)
             => SocketSeguro.SendAsync(buffer, socketFlags, cancellationToken);
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Enviar(ReadOnlySpan<byte> buffer) 
+        public int Enviar(ReadOnlySpan<byte> buffer)
             => Enviar(buffer, SocketFlags.None);
 
         /// <summary>
@@ -220,12 +217,12 @@ namespace JCarrillo.AOT.Net.Socket
         /// <param name="socketFlags">Los flags de control del socket.</param>
         /// <returns>El número de bytes enviados.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Enviar(ReadOnlySpan<byte> buffer, SocketFlags socketFlags = SocketFlags.None) 
+        public int Enviar(ReadOnlySpan<byte> buffer, SocketFlags socketFlags = SocketFlags.None)
             => SocketSeguro.Send(buffer, socketFlags);
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ValueTask<int> EnviarAsync(ref PooledArray<byte> buffer, CancellationToken cancellationToken = default) 
+        public ValueTask<int> EnviarAsync(ref PooledArray<byte> buffer, CancellationToken cancellationToken = default)
             => EnviarAsync(ref buffer, SocketFlags.None, cancellationToken);
 
         /// <summary>
@@ -236,12 +233,12 @@ namespace JCarrillo.AOT.Net.Socket
         /// <param name="cancellationToken">El token de cancelación.</param>
         /// <returns>Una tarea que representa el envío asíncrono con el número de bytes enviados.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ValueTask<int> EnviarAsync(ref PooledArray<byte> buffer, SocketFlags socketFlags, CancellationToken cancellationToken = default) 
+        public ValueTask<int> EnviarAsync(ref PooledArray<byte> buffer, SocketFlags socketFlags, CancellationToken cancellationToken = default)
             => SocketSeguro.SendAsync(buffer.Memory, socketFlags, cancellationToken);
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Enviar(ref PooledArray<byte> buffer) 
+        public int Enviar(ref PooledArray<byte> buffer)
             => Enviar(ref buffer, SocketFlags.None);
 
         /// <summary>
@@ -251,12 +248,12 @@ namespace JCarrillo.AOT.Net.Socket
         /// <param name="socketFlags">Los flags de control del socket.</param>
         /// <returns>El número de bytes enviados.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Enviar(ref PooledArray<byte> buffer, SocketFlags socketFlags = SocketFlags.None) 
+        public int Enviar(ref PooledArray<byte> buffer, SocketFlags socketFlags = SocketFlags.None)
             => SocketSeguro.Send(buffer.Span, socketFlags);
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Enviar(ref PooledArrayRef<byte> buffer) 
+        public int Enviar(ref PooledArrayRef<byte> buffer)
             => Enviar(ref buffer, SocketFlags.None);
 
         /// <summary>
@@ -266,17 +263,17 @@ namespace JCarrillo.AOT.Net.Socket
         /// <param name="socketFlags">Los flags de control del socket.</param>
         /// <returns>El número de bytes enviados.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Enviar(ref PooledArrayRef<byte> buffer, SocketFlags socketFlags = SocketFlags.None) 
+        public int Enviar(ref PooledArrayRef<byte> buffer, SocketFlags socketFlags = SocketFlags.None)
             => SocketSeguro.Send(buffer.Span, socketFlags);
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Cerrar() 
+        public void Cerrar()
             => _socket?.Close();
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Dispose() 
+        public void Dispose()
             => _socket?.Dispose();
 
         #endregion
@@ -382,7 +379,7 @@ namespace JCarrillo.AOT.Net.Socket
         /// </summary>
         /// <param name="extremoLocal">El extremo de red local.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Vincular(EndPoint extremoLocal) 
+        public void Vincular(EndPoint extremoLocal)
             => SocketSeguro.Bind(extremoLocal);
 
         /// <summary>
@@ -390,7 +387,7 @@ namespace JCarrillo.AOT.Net.Socket
         /// </summary>
         /// <param name="colaConexiones">El tamaño de la cola de conexiones entrantes pendientes.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Escuchar(int colaConexiones) 
+        public void Escuchar(int colaConexiones)
             => SocketSeguro.Listen(colaConexiones);
 
         /// <summary>
@@ -440,7 +437,7 @@ namespace JCarrillo.AOT.Net.Socket
         [AsyncMethodBuilder(typeof(PoolingAsyncValueTaskMethodBuilder<>))]
         public async ValueTask<SocketAot> AceptarAsync(CancellationToken cancellationToken = default)
         {
-            var socketAceptado = await SocketSeguro.AcceptAsync(cancellationToken).ConfigureAwait(false);
+            Socket socketAceptado = await SocketSeguro.AcceptAsync(cancellationToken).ConfigureAwait(false);
             return new SocketAot(socketAceptado);
         }
 
@@ -451,7 +448,7 @@ namespace JCarrillo.AOT.Net.Socket
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public SocketAot Aceptar()
         {
-            var socketAceptado = SocketSeguro.Accept();
+            Socket socketAceptado = SocketSeguro.Accept();
             return new SocketAot(socketAceptado);
         }
 
@@ -474,7 +471,7 @@ namespace JCarrillo.AOT.Net.Socket
             {
                 flujo.AlConfigurar(SocketSeguro);
 
-                using var buffer = new PooledArray<byte>(flujo.TamañoBuffer);
+                using PooledArray<byte> buffer = new(flujo.TamañoBuffer);
                 while (!cancellationToken.IsCancellationRequested)
                 {
                     int bytesRead = await SocketSeguro.ReceiveAsync(buffer.Memory, SocketFlags.None, cancellationToken).ConfigureAwait(false);
@@ -534,7 +531,7 @@ namespace JCarrillo.AOT.Net.Socket
         {
             try
             {
-                using var buffer = new PooledArray<byte>(flujo.TamañoBuffer);
+                using PooledArray<byte> buffer = new(flujo.TamañoBuffer);
                 while (!cancellationToken.IsCancellationRequested)
                 {
                     int bytesRead = await SocketSeguro.ReceiveAsync(buffer.Memory, SocketFlags.None, cancellationToken).ConfigureAwait(false);
@@ -582,7 +579,7 @@ namespace JCarrillo.AOT.Net.Socket
                     ? new IPEndPoint(IPAddress.Any, 0)
                     : new IPEndPoint(IPAddress.IPv6Any, 0);
 
-                using var buffer = new PooledArray<byte>(flujo.TamañoBuffer);
+                using PooledArray<byte> buffer = new(flujo.TamañoBuffer);
                 while (!cancellationToken.IsCancellationRequested)
                 {
                     SocketReceiveFromResult result = await SocketSeguro.ReceiveFromAsync(buffer.Memory, SocketFlags.None, extremoRemoto, cancellationToken).ConfigureAwait(false);
@@ -629,8 +626,8 @@ namespace JCarrillo.AOT.Net.Socket
                     try
                     {
                         flujo.AlConfigurarAceptado(socketAceptado);
-                        var socketClienteAot = new SocketAot(socketAceptado);
-                        
+                        SocketAot socketClienteAot = new(socketAceptado);
+
                         _ = EjecutarSocketAceptadoAsync(flujo, socketClienteAot, cancellationToken);
                     }
                     catch (Exception clientEx)

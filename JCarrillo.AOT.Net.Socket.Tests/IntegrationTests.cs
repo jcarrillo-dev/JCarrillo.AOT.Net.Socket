@@ -12,26 +12,26 @@ namespace JCarrillo.AOT.Net.Socket.Tests
         public async Task Integration_TcpFlow_ZeroAllocationCommunication_Succeeds()
         {
             // Determinar puerto libre vinculando al puerto 0 dinámico
-            var targetEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
-            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+            IPEndPoint targetEndPoint = new(IPAddress.Loopback, 0);
+            using CancellationTokenSource cts = new(TimeSpan.FromSeconds(5));
 
-            var serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            var serverSocketAot = new SocketAot(serverSocket);
-            var serverFlow = new FlujoAceptarPruebaServidor(targetEndPoint);
+            Socket serverSocket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            SocketAot serverSocketAot = new(serverSocket);
+            FlujoAceptarPruebaServidor serverFlow = new(targetEndPoint);
 
             // Iniciar servidor en segundo plano
-            var serverTask = serverSocketAot.EjecutarFlujoAceptarAsync(serverFlow, cts.Token);
+            ValueTask serverTask = serverSocketAot.EjecutarFlujoAceptarAsync(serverFlow, cts.Token);
 
             // Recuperar el puerto dinámico asignado por el sistema operativo
             int assignedPort = ((IPEndPoint)serverSocket.LocalEndPoint!).Port;
-            var assignedEndPoint = new IPEndPoint(IPAddress.Loopback, assignedPort);
+            IPEndPoint assignedEndPoint = new(IPAddress.Loopback, assignedPort);
 
-            var clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            var clientSocketAot = new SocketAot(clientSocket);
-            var clientFlow = new FlujoClienteSecuenciaPrueba(assignedEndPoint);
+            Socket clientSocket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            SocketAot clientSocketAot = new(clientSocket);
+            FlujoClienteSecuenciaPrueba clientFlow = new(assignedEndPoint);
 
             // Iniciar flujo de conexión del cliente en segundo plano
-            var clientTask = clientSocketAot.EjecutarFlujoClienteSecuenciaAsync(clientFlow, cts.Token);
+            ValueTask clientTask = clientSocketAot.EjecutarFlujoClienteSecuenciaAsync(clientFlow, cts.Token);
 
             // Esperar que la conexión sea aceptada por el servidor
             await serverFlow.EsperarAceptadoAsync(cts.Token);
@@ -95,7 +95,7 @@ namespace JCarrillo.AOT.Net.Socket.Tests
                 _socketClienteAceptado = socketAceptado;
                 _senalAceptado.Release();
 
-                var flujoCliente = new FlujoSecuenciaServidorCliente(this);
+                FlujoSecuenciaServidorCliente flujoCliente = new(this);
                 await socketAceptado.EjecutarFlujoSecuenciaAsync(flujoCliente, cancellationToken).ConfigureAwait(false);
             }
 
